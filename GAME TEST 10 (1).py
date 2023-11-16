@@ -1,7 +1,7 @@
 import pygame
 import random
 import os
-#muuda
+
 #ekraani seaded
 WIDTH=600
 HEIGHT=480
