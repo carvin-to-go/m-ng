@@ -12,7 +12,7 @@ Mobs' art:
 4. ghost_dead.png
 5. piranha.png
 
-: all mobs' art by Kenney.nl. on OpenGameArt. Link: https://opengameart.org/content/platformer-art-more-animations-and-enemies
+: all mobs' art by Kenney.nl. on OpenGameArt. Link:  https://opengameart.org/content/platformer-art-more-animations-and-enemies
 
 Background art:
 Ocean or sea underwater. Image by upklyak on Freepik. Link: https://www.freepik.com/free-vector/ocean-sea-underwater_12681034.htm
