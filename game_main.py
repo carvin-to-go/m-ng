@@ -22,6 +22,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 LIGHTBLUE = (0,155,155)
+
 #failide asukohad
 game_folder= os.path.dirname(__file__)  
 img_folder=os.path.join(game_folder, "img")
@@ -32,14 +33,14 @@ pygame.init()
 screen=pygame.display.set_mode((WIDTH, HEIGHT))#ekraan
 screen_rect=screen.get_rect() #ekraani rectangle
 pygame.display.set_caption("KALAMÄNG")
-
+#skoor
 score = 0
 successful_passes = 0
 
 
-#mängu defineerimine, mängu loop
+
 def main():
-    
+    #skoor
     global successful_passes
     global score
     clock=pygame.time.Clock()
@@ -96,35 +97,39 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.centery=WIDTH #spawnimise asukoht
         self.rect.bottom=HEIGHT/2
-        self.x_speed=3 #liigub ise sellel kiirusel 3
+        self.x_speed=3 #liigub ise sellel kiirusel
         self.y_speed=0
     
     def update(self):
-        self.rect.y+=self.y_speed #uuendab sinu liigutud koordinaatidele ennast
+        self.rect.y+=self.y_speed #uuendab liigutamise järgi enda asukohta
         self.rect.x+=self.x_speed
         keystate=pygame.key.get_pressed() #liikumiseks kasutame neid nuppe
         if keystate[pygame.K_UP]:
             self.rect.y+=-4 #saad teda liigutada sel kiirusel
         if keystate[pygame.K_DOWN]:
             self.rect.y+=4
+        #hoiame ekraani sees
         if self.rect.top < 0:
             self.rect.top = 0
         elif self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
         if self.rect.left < 0:
             self.rect.left = 0
+        #kui lõppu jõuad, siis uus ring
         elif self.rect.right > WIDTH:
-            # ring peale
             self.rect.left = 0 
             self.rect.centery = HEIGHT // 2           
 
+# vaenlased ridade kaupa paigutatud
 class Mob1(pygame.sprite.Sprite):
     def __init__(self, mobs):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((30, 40))# suurus 
+        # suurus ja välimus
+        self.image = pygame.Surface((30, 40))
         self.image = pygame.image.load(os.path.join(img_folder, "fishGreen_dead.png")).convert_alpha() 
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
+        #siin random niimoodi,et mobide kattumisi ei tekiks
         random1=random.sample(range(0, 480, 45), 4)
         taken1=[]
         for value in random1:
@@ -133,13 +138,14 @@ class Mob1(pygame.sprite.Sprite):
             self.rect.y = current_value1
             taken1.append(current_value1)
         
-        self.rect.x = 120
+        self.rect.x = 120 # esimese mobide rea asukoht
         self.speedy = 2 #kiirus
         self.speedx = 0 #x teljel ei liigu
  
     def update(self):
         self.rect.y += self.speedy
         self.rect.x += self.speedx
+        #kui ekraani alla jõuab, siis uuesti üles tagasi
         if self.rect.bottom > HEIGHT+40:
             self.rect.y=0
 
@@ -226,6 +232,7 @@ player=Player()
 mobs=pygame.sprite.Group()
 all_sprites.add(player)
 
+#praegu 4 mobi igal real
 #võib siia ka random vahemikus Mobe teha
 for i in range(4): 
     a=Mob1(mobs)
